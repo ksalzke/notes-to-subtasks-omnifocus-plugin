@@ -44,7 +44,7 @@ Subtasks are tagged with:
 * any tags specified in the regular TaskPaper format
 
 To allow for multiple iterations of checklists, there are three 'levels' of 'task markers':
-1. ` - ` or `[ ]` will be expanded the first time the function is run
+1. `- ` or `[ ]` will be expanded the first time the function is run
 2. `( )` will be expanded the second time the function is run
 3. `< >` will be expanded the third time the function is run
 

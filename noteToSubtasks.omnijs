@@ -12,12 +12,22 @@
   var action = new PlugIn.Action(function (selection, sender) {
     task = selection.tasks[0];
 
-    // CONFIGURATION
-    config = PlugIn.find("com.KaitlinSalzke.config").library("configLibrary");
-    uninheritedTags = config.uninheritedTags();
-
-    // The checklistTagName should be a string representing the name of the tag you wish to tag subtasks with
+    // *******CONFIGURATION******* //
+    // The name of the tag that subtasks are tagged with
+    // THIS SHOULD BE A STRING
     checklistTagName = "✓";
+
+    // The tags that shouldn't be inherited by the subtasks
+    // THIS SHOULD BE AN ARRAY OF TAG OBJECTS
+    uninheritedTags = [];
+
+    // If you are not me, you can safely delete the following section (or tweak it to match your own setup)
+    if (PlugIn.find("com.KaitlinSalzke.config") !== null) {
+      uninheritedTags = PlugIn.find("com.KaitlinSalzke.config")
+        .library("configLibrary")
+        .uninheritedTags();
+    }
+    // *************************** //
 
     // get current perspective
     var startingPerspective = document.windows[0].perspective;

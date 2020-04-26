@@ -73,6 +73,11 @@
 
       //open URL (generating subtasks)
       URL.fromString(pasteUrlStr).call(() => {
+        // check if there is only one subtask now and if so expand it too
+        if (task.children.length == 1) {
+          this.noteToSubtasks(task.children[0]);
+        }
+
         // return to starting perspective
         console.log(startingPerspective);
         if (startingPerspective === Perspective.BuiltIn.Projects) {

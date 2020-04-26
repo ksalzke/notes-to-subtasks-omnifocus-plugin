@@ -69,19 +69,7 @@
         }
 
         // return to starting perspective
-        console.log(startingPerspective);
-        if (startingPerspective === Perspective.BuiltIn.Projects) {
-          taskId = task.id.primaryKey;
-          taskUrlStr = "omnifocus:///task/" + taskId;
-          URL.fromString(taskUrlStr).call(() => {});
-        } else if (startingPerspective instanceof Perspective.BuiltIn) {
-          document.windows[0].perspective = startingPerspective;
-        } else {
-          var perspectiveUrlStr =
-            "omnifocus:///perspective/" +
-            encodeURIComponent(startingPerspective.name);
-          URL.fromString(perspectiveUrlStr).call(() => {});
-        }
+        document.windows[0].perspective = startingPerspective;
       });
     }
   };

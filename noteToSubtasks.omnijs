@@ -12,9 +12,12 @@
   var action = new PlugIn.Action(function (selection, sender) {
     task = selection.tasks[0];
 
-    // CONFIG
+    // CONFIGURATION
     config = PlugIn.find("com.KaitlinSalzke.config").library("configLibrary");
     uninheritedTags = config.uninheritedTags();
+
+    // The checklistTagName should be a string representing the name of the tag you wish to tag subtasks with
+    checklistTagName = "✓";
 
     // get current perspective
     var startingPerspective = document.windows[0].perspective;
@@ -45,13 +48,13 @@
     // add parent & checklist tags (where there are existing tags on line in taskpaper)
     taskpaper = taskpaper.replace(
       /@tags\((.+)\)/gm,
-      "@tags($1, ✓, " + tagList + ")"
+      `@tags($1, ${checklistTagName}, ${tagList})`
     );
 
     // add parent & checklist tags (where there aren't any exsting tags on line in taskpaper)
     taskpaper = taskpaper.replace(
       /(^((?!@tags).)*$)/gm,
-      "$1 @tags(✓," + tagList + ")"
+      `$1 @tags(${checklistTagName},${tagList})`
     );
 
     // replace '( )' with '[ ]'

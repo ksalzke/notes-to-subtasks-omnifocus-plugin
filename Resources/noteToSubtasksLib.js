@@ -9,11 +9,16 @@
     checklistTagName = config.checklistTagName();
     uninheritedTags = config.uninheritedTags();
 
+    // stop if no TaskPaper found
+    regex = /^.*?(?=_*\[\s\]|_*-\s)/gs;
+    if (!regex.test(task.note)) {
+      return;
+    }
+
     // get current perspective
     var startingPerspective = document.windows[0].perspective;
 
     // ignore everything up to first '[ ]' or '- ' or '_'' in TaskPaper
-    var regex = /^.*?(?=_*\[\s\]|_*-\s)/gs;
     var taskpaper = task.note.replace(regex, "");
 
     // get note and replace underscores before "[" with tabs -- needed because Shortcut removes tabs from Drafts template
@@ -26,52 +31,50 @@
     // replace '[ ]' with '-'
     taskpaper = taskpaper.replace(/\[\s\]/g, " - ");
 
-    if (taskpaper !== "") {
-      //create list of tags from original task
-      var tagArray = [];
-      task.tags.forEach(function (tag) {
-        if (!uninheritedTags.includes(tag)) {
-          tagArray.push(tag.name);
-        }
-      });
-      tagList = tagArray.join(", ");
+    //create list of tags from original task
+    var tagArray = [];
+    task.tags.forEach(function (tag) {
+      if (!uninheritedTags.includes(tag)) {
+        tagArray.push(tag.name);
+      }
+    });
+    tagList = tagArray.join(", ");
 
-      // add parent & checklist tags (where there are existing tags on line in taskpaper)
-      taskpaper = taskpaper.replace(
-        /@tags\((.+)\)/gm,
-        `@tags($1, ${checklistTagName}, ${tagList})`
-      );
+    // add parent & checklist tags (where there are existing tags on line in taskpaper)
+    taskpaper = taskpaper.replace(
+      /@tags\((.+)\)/gm,
+      `@tags($1, ${checklistTagName}, ${tagList})`
+    );
 
-      // add parent & checklist tags (where there aren't any exsting tags on line in taskpaper)
-      taskpaper = taskpaper.replace(
-        /(^((?!@tags).)*$)/gm,
-        `$1 @tags(${checklistTagName},${tagList})`
-      );
+    // add parent & checklist tags (where there aren't any exsting tags on line in taskpaper)
+    taskpaper = taskpaper.replace(
+      /(^((?!@tags).)*$)/gm,
+      `$1 @tags(${checklistTagName},${tagList})`
+    );
 
-      // replace '( )' with '[ ]'
-      taskpaper = taskpaper.replace(/\(\s\)/g, "[ ]");
+    // replace '( )' with '[ ]'
+    taskpaper = taskpaper.replace(/\(\s\)/g, "[ ]");
 
-      // replace '< >' with '( )'
-      taskpaper = taskpaper.replace(/\<\s\>/g, "( )");
+    // replace '< >' with '( )'
+    taskpaper = taskpaper.replace(/\<\s\>/g, "( )");
 
-      // build URL to paste tasks
-      var pasteUrlStr =
-        "omnifocus:///paste?target=/task/" +
-        encodeURIComponent(task.id.primaryKey) +
-        "&content=" +
-        encodeURIComponent(taskpaper);
+    // build URL to paste tasks
+    var pasteUrlStr =
+      "omnifocus:///paste?target=/task/" +
+      encodeURIComponent(task.id.primaryKey) +
+      "&content=" +
+      encodeURIComponent(taskpaper);
 
-      //open URL (generating subtasks)
-      URL.fromString(pasteUrlStr).call(() => {
-        // check if there is only one subtask now and if so expand it too
-        if (task.children.length == 1) {
-          this.noteToSubtasks(task.children[0]);
-        }
+    //open URL (generating subtasks)
+    URL.fromString(pasteUrlStr).call(() => {
+      // check if there is only one subtask now and if so expand it too
+      if (task.children.length == 1) {
+        this.noteToSubtasks(task.children[0]);
+      }
 
-        // return to starting perspective
-        document.windows[0].perspective = startingPerspective;
-      });
-    }
+      // return to starting perspective
+      document.windows[0].perspective = startingPerspective;
+    });
   };
 
   return functionLibrary;

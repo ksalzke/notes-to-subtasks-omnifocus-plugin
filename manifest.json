@@ -5,5 +5,8 @@
   "description": "Converts the TaskPaper-formatted note of the selected task into subtasks. Note '[ ]' is recognised as '-' to allow for notes to be generated as part of a TaskPaper template.",
   "version": "1.0",
   "actions": [{ "identifier": "noteToSubtasks" }],
-  "libraries": [{ "identifier": "noteToSubtasksLib" }]
+  "libraries": [
+    { "identifier": "noteToSubtasksLib" },
+    { "identifier": "noteToSubtasksConfig" }
+  ]
 }

@@ -2,22 +2,12 @@
   var functionLibrary = new PlugIn.Library(new Version("1.0"));
 
   functionLibrary.noteToSubtasks = function (task) {
-    // *******CONFIGURATION******* //
-    // The name of the tag that subtasks are tagged with
-    // THIS SHOULD BE A STRING
-    checklistTagName = "✓";
-
-    // The tags that shouldn't be inherited by the subtasks
-    // THIS SHOULD BE AN ARRAY OF TAG OBJECTS
-    uninheritedTags = [];
-
-    // If you are not me, you can safely delete the following section (or tweak it to match your own setup)
-    if (PlugIn.find("com.KaitlinSalzke.config") !== null) {
-      uninheritedTags = PlugIn.find("com.KaitlinSalzke.config")
-        .library("configLibrary")
-        .uninheritedTags();
-    }
-    // *************************** //
+    // configuration
+    config = PlugIn.find("com.KaitlinSalzke.noteToSubtasks").library(
+      "noteToSubtasksConfig"
+    );
+    checklistTagName = config.checklistTagName();
+    uninheritedTags = config.uninheritedTags();
 
     // get current perspective
     var startingPerspective = document.windows[0].perspective;

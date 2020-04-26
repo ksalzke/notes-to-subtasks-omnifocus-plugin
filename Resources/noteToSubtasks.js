@@ -1,13 +1,3 @@
-/*{
-	"type": "action",
-	"targets": ["omnifocus"],
-	"author": "Kaitlin Salzke",
-	"identifier": "com.KaitlinSalzke.noteToSubtasks",
-	"version": "1.2",
-	"description": "Converts the TaskPaper-formatted note of the selected task into subtasks. Note '[ ]' is recognised as '-' to allow for notes to be generated as part of a TaskPaper template.",
-	"label": "TaskPaper Note to Subtasks",
-	"shortLabel": "Note to Subtasks"
-}*/
 (() => {
   var action = new PlugIn.Action(function (selection, sender) {
     task = selection.tasks[0];

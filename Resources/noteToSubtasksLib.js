@@ -18,6 +18,12 @@
     // get current perspective
     var startingPerspective = document.windows[0].perspective;
 
+    // if task is a repeating task, duplicate and drop before expanding the new task
+    nTask = duplicateTasks([task], task.before)[0];
+    nTask.repetitionRule = null;
+    task.drop(false);
+    task = nTask;
+
     // ignore everything up to first '[ ]' or '- ' or '_'' in TaskPaper
     var taskpaper = task.note.replace(regex, "");
 

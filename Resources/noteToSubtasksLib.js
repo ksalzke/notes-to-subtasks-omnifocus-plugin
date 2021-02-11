@@ -79,7 +79,13 @@
       }
 
       // return to starting perspective
-      document.windows[0].perspective = startingPerspective;
+      if (Perspective.BuiltIn.all.includes(startingPerspective)) {
+        document.windows[0].perspective = startingPerspective;
+      } else {
+        document.windows[0].perspective = Perspective.Custom.byName(startingPerspective.name);
+      }
+
+
     });
   };
 

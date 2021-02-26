@@ -1,4 +1,4 @@
-/* global PlugIn Version duplicateTasks Perspective */
+/* global PlugIn Version duplicateTasks Perspective Pasteboard copyTasksToPasteboard deleteObject */
 (() => {
   const functionLibrary = new PlugIn.Library(new Version('1.0'))
 
@@ -86,6 +86,15 @@
         document.windows[0].perspective = Perspective.Custom.byName(startingPerspective.name)
       }
     })
+  }
+
+  functionLibrary.collapseSubtasks = function (task) {
+    const tempPasteboard = Pasteboard.makeUnique()
+
+    copyTasksToPasteboard(task.children, tempPasteboard)
+    task.note = tempPasteboard.string
+
+    task.children.forEach(child => deleteObject(child))
   }
 
   return functionLibrary

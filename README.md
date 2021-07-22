@@ -32,9 +32,8 @@ This plugin contains the following function within the `noteToSubtasksLib` libra
 
 This function takes a task object as input and:
 1. Builds the TaskPaper text to be used to create subtasks of that task.
-2. Creates the subtasks by "pasting" the generated TaskPaper into OmniFocus (using the existing URL scheme).
+2. Creates the subtasks by "pasting" the generated TaskPaper into OmniFocus.
 3. If only one subtask is created, recursively runs on the created subtask as well.
-4. Attempts to return the user to their starting perspective.
 
 Subtasks are tagged with:
 * any tags that the original task is tagged with, _unless_ they are included in the `uninheritedTags` option in the config file,

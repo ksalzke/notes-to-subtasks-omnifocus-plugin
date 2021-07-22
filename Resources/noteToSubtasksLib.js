@@ -1,4 +1,4 @@
-/* global PlugIn Version duplicateTasks Perspective Pasteboard copyTasksToPasteboard deleteObject */
+/* global PlugIn Version duplicateTasks Pasteboard copyTasksToPasteboard deleteObject moveTasks TypeIdentifier pasteTasksFromPasteboard */
 (() => {
   const functionLibrary = new PlugIn.Library(new Version('1.0'))
 
@@ -15,9 +15,6 @@
     if (!regex.test(task.note)) {
       return
     }
-
-    // get current perspective
-    const startingPerspective = document.windows[0].perspective
 
     // if task is a repeating task, duplicate and drop before expanding the new task
     const nTask = duplicateTasks([task], task.before)[0]
@@ -65,27 +62,18 @@
     // replace '< >' with '( )'
     taskpaper = taskpaper.replace(/<\s>/g, '( )')
 
-    // build URL to paste tasks
-    const pasteUrlStr =
-      'omnifocus:///paste?target=/task/' +
-      encodeURIComponent(task.id.primaryKey) +
-      '&content=' +
-      encodeURIComponent(taskpaper)
+    // create subtasks
+    const subtaskPasteboard = Pasteboard.makeUnique()
+    const subtasks = new Pasteboard.Item()
+    subtasks.setStringForType(taskpaper, TypeIdentifier.taskPaper)
+    subtaskPasteboard.addItems([subtasks])
+    const newTasks = pasteTasksFromPasteboard(subtaskPasteboard)
+    moveTasks(newTasks, task.ending)
 
-    // open URL (generating subtasks)
-    URL.fromString(pasteUrlStr).call(() => {
-      // check if there is only one subtask now and if so expand it too
-      if (task.children.length === 1) {
-        this.noteToSubtasks(task.children[0])
-      }
-
-      // return to starting perspective
-      if (Perspective.BuiltIn.all.includes(startingPerspective)) {
-        document.windows[0].perspective = startingPerspective
-      } else {
-        document.windows[0].perspective = Perspective.Custom.byName(startingPerspective.name)
-      }
-    })
+    // check if there is only one subtask now and if so expand it too
+    if (task.children.length === 1) {
+      this.noteToSubtasks(task.children[0])
+    }
   }
 
   functionLibrary.collapseSubtasks = function (task) {

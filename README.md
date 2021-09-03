@@ -28,9 +28,13 @@ This action simply runs the below `noteToSubtasks` function on the selected task
 
 This plugin contains the following function within the `noteToSubtasksLib` library:
 
+## templateToSubtasks
+
+This function tasks a task and a template project as input and uses my [Templates For OmniFocus](https://github.com/ksalzke/templates-for-omnifocus) plug-in to insert the template as a subtask. (Note that not all more advanced features are fully supported, but basic use of placeholders should work correctly. )
+
 ## noteToSubtasks
 
-This function takes a task object as input and:
+This function takes a task object as input and, if there is a template specified in the note in the format `$TEMPLATE=Name of Template Project`, runs the `templateToSubtasks` action above. Otherwise, it:
 1. Builds the TaskPaper text to be used to create subtasks of that task.
 2. Creates the subtasks by "pasting" the generated TaskPaper into OmniFocus.
 3. If only one subtask is created, recursively runs on the created subtask as well.
@@ -48,3 +52,5 @@ To allow for multiple iterations of checklists, there are three 'levels' of 'tas
 In the process of creating the TaskPaper text, this function:
 * Ignores everything up to the first `[ ]`, `- `, or `_` in the note
 * Replaces underscores before `[ ` with tabs (this is to assist with Taskpaper generated from Shortcuts, as Shortcuts doesn't retain the tab characters)
+
+In both cases, repeating tasks are _skipped_ before expanding.

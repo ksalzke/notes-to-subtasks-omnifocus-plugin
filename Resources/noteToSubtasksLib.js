@@ -1,6 +1,20 @@
-/* global PlugIn Version duplicateTasks Pasteboard copyTasksToPasteboard deleteObject moveTasks TypeIdentifier pasteTasksFromPasteboard */
+/* global PlugIn Version duplicateTasks Pasteboard copyTasksToPasteboard deleteObject moveTasks TypeIdentifier pasteTasksFromPasteboard Alert projectsMatching */
 (() => {
   const functionLibrary = new PlugIn.Library(new Version('1.0'))
+
+  functionLibrary.templateToSubtasks = function (task, template) {
+    const templateLib = PlugIn.find('com.KaitlinSalzke.Templates').library('templateLibrary')
+
+    if (templateLib !== null) {
+      console.log('creating')
+      console.log(template)
+      console.log(task)
+      templateLib.createFromTemplate(template, task)
+    } else {
+      const alert = new Alert('Templates Not Installed', 'Trying to create from template but Templates plugin is not installed. Find at https://github.com/ksalzke/templates-for-omnifocus')
+      alert.show()
+    }
+  }
 
   functionLibrary.noteToSubtasks = function (task) {
     // configuration
@@ -10,17 +24,24 @@
     const checklistTagName = config.checklistTagName()
     const uninheritedTags = config.uninheritedTags()
 
-    // stop if no TaskPaper found
-    const regex = /^.*?(?=_*\[\s\]|_*-\s)/gs
-    if (!regex.test(task.note)) {
-      return
-    }
-
     // if task is a repeating task, duplicate and drop before expanding the new task
     const nTask = duplicateTasks([task], task.before)[0]
     nTask.repetitionRule = null
     task.drop(false)
     task = nTask
+
+    // create from template if applicable
+    const templateNameMatch = task.note.match(/\$TEMPLATE=(.*?)$/)
+    if (templateNameMatch !== null) {
+      functionLibrary.templateToSubtasks(task, projectsMatching(templateNameMatch[1])[0])
+      return
+    }
+
+    // stop if no TaskPaper and no template found
+    const regex = /^.*?(?=_*\[\s\]|_*-\s)/gs
+    if (!regex.test(task.note)) {
+      return
+    }
 
     // ignore everything up to first '[ ]' or '- ' or '_'' in TaskPaper
     let taskpaper = task.note.replace(regex, '')

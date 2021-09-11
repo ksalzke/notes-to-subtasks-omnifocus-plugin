@@ -21,7 +21,7 @@
     const config = PlugIn.find('com.KaitlinSalzke.noteToSubtasks').library(
       'noteToSubtasksConfig'
     )
-    const checklistTagName = config.checklistTagName()
+    const checklistTag = config.checklistTag()
     const uninheritedTags = config.uninheritedTags()
 
     // if task is a repeating task, duplicate and drop before expanding the new task
@@ -34,6 +34,7 @@
     const templateNameMatch = task.note.match(/\$TEMPLATE=(.*?)$/)
     if (templateNameMatch !== null) {
       functionLibrary.templateToSubtasks(task, projectsMatching(templateNameMatch[1])[0])
+      tagSubtasks(task)
       return
     }
 
@@ -56,26 +57,11 @@
     // replace '[ ]' with '-'
     taskpaper = taskpaper.replace(/\[\s\]/g, ' - ')
 
-    // create list of tags from original task
-    const tagArray = []
-    task.tags.forEach(function (tag) {
-      if (!uninheritedTags.includes(tag)) {
-        tagArray.push(tag.name)
-      }
-    })
-    const tagList = tagArray.join(', ')
-
-    // add parent & checklist tags (where there are existing tags on line in taskpaper)
-    taskpaper = taskpaper.replace(
-      /@tags\((.+)\)/gm,
-      `@tags($1, ${checklistTagName}, ${tagList})`
-    )
-
-    // add parent & checklist tags (where there aren't any exsting tags on line in taskpaper)
-    taskpaper = taskpaper.replace(
-      /(^((?!@tags).)*$)/gm,
-      `$1 @tags(${checklistTagName},${tagList})`
-    )
+    // function to add tags
+    function tagSubtasks (parentTask) {
+      const tagsToAdd = parentTask.tags.filter(tag => !uninheritedTags.includes(tag))
+      parentTask.flattenedTasks.forEach(subtask => subtask.addTags([checklistTag, ...tagsToAdd]))
+    }
 
     // replace '( )' with '[ ]'
     taskpaper = taskpaper.replace(/\(\s\)/g, '[ ]')
@@ -90,6 +76,9 @@
     subtaskPasteboard.addItems([subtasks])
     const newTasks = pasteTasksFromPasteboard(subtaskPasteboard)
     moveTasks(newTasks, task.ending)
+
+    // add tags
+    tagSubtasks(task)
 
     // check if there is only one subtask now and if so expand it too
     if (task.children.length === 1) {

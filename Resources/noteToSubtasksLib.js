@@ -44,6 +44,9 @@
       return
     }
 
+    // mark parent task as completed when all children are completed
+    task.completedByChildren = true
+
     // ignore everything up to first '[ ]' or '- ' or '_'' in TaskPaper
     let taskpaper = task.note.replace(regex, '')
 
@@ -87,8 +90,10 @@
   }
 
   functionLibrary.collapseSubtasks = function (task) {
-    const tempPasteboard = Pasteboard.makeUnique()
+    // make sure parent task isn't set to autocomplete so that it isn't marked complete when collapsed
+    task.completedByChildren = false
 
+    const tempPasteboard = Pasteboard.makeUnique()
     copyTasksToPasteboard(task.children, tempPasteboard)
     task.note = tempPasteboard.string
 

@@ -24,6 +24,10 @@ This plug-in contains the following action:
 
 This action simply runs the below `noteToSubtasks` function on the selected task.
 
+## Collapse Subtasks
+
+This action simply runs the below `noteToSubtasks` function on the selected task(s).
+
 # Functions
 
 This plugin contains the following function within the `noteToSubtasksLib` library:
@@ -54,3 +58,12 @@ In the process of creating the TaskPaper text, this function:
 * Replaces underscores before `[ ` with tabs (this is to assist with Taskpaper generated from Shortcuts, as Shortcuts doesn't retain the tab characters)
 
 In both cases, repeating tasks are _skipped_ before expanding.
+
+## collapseSubtasks
+
+Given a task, this function: 
+1. Ensures the task is not set to autocomplete with children.
+2. Sets the note of the given task to the children of the task in TaskPaper format.
+3. Deletes the subtasks.
+
+The task can then subsequently be expanded using the `noteToSubtasks` function.

@@ -1,14 +1,12 @@
-/* global PlugIn Version duplicateTasks Pasteboard copyTasksToPasteboard deleteObject moveTasks TypeIdentifier pasteTasksFromPasteboard Alert projectsMatching */
+/* global PlugIn Version duplicateTasks Pasteboard copyTasksToPasteboard deleteObject moveTasks TypeIdentifier pasteTasksFromPasteboard Alert */
 (() => {
   const functionLibrary = new PlugIn.Library(new Version('1.0'))
 
-  functionLibrary.templateToSubtasks = function (task, template) {
+  functionLibrary.templateToSubtasks = function (task, templateName) {
     const templateLib = PlugIn.find('com.KaitlinSalzke.Templates').library('templateLibrary')
 
     if (templateLib !== null) {
-      console.log('creating')
-      console.log(template)
-      console.log(task)
+      const template = templateLib.getTemplateFolder().flattenedProjects.find(project => project.name === templateName)
       templateLib.createFromTemplate(template, task)
     } else {
       const alert = new Alert('Templates Not Installed', 'Trying to create from template but Templates plugin is not installed. Find at https://github.com/ksalzke/templates-for-omnifocus')
@@ -33,7 +31,7 @@
     // create from template if applicable
     const templateNameMatch = task.note.match(/\$TEMPLATE=(.*?)$/)
     if (templateNameMatch !== null) {
-      functionLibrary.templateToSubtasks(task, projectsMatching(templateNameMatch[1])[0])
+      functionLibrary.templateToSubtasks(task, templateNameMatch[1])
       tagSubtasks(task)
       return
     }

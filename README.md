@@ -34,7 +34,7 @@ This plugin contains the following function within the `noteToSubtasksLib` libra
 
 ## templateToSubtasks
 
-This function tasks a task and a template project as input and uses my [Templates For OmniFocus](https://github.com/ksalzke/templates-for-omnifocus) plug-in to insert the template as a subtask. (Note that not all more advanced features are fully supported, but basic use of placeholders should work correctly. )
+This function tasks a task and a template project name as input and uses my [Templates For OmniFocus](https://github.com/ksalzke/templates-for-omnifocus) plug-in to insert the template as a subtask. (Note that not all more advanced features are fully supported, but basic use of placeholders should work correctly. )
 
 ## noteToSubtasks
 

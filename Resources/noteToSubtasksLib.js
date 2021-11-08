@@ -2,11 +2,12 @@
 (() => {
   const functionLibrary = new PlugIn.Library(new Version('1.0'))
 
-  functionLibrary.templateToSubtasks = function (task, templateName) {
+  functionLibrary.templateToSubtasks = async function (task, templateName) {
     const templateLib = PlugIn.find('com.KaitlinSalzke.Templates').library('templateLibrary')
 
     if (templateLib !== null) {
-      const template = templateLib.getTemplateFolder().flattenedProjects.find(project => project.name === templateName)
+      const templateFolder = await templateLib.getTemplateFolder()
+      const template = templateFolder.flattenedProjects.find(project => project.name === templateName)
       templateLib.createFromTemplate(template, task)
     } else {
       const alert = new Alert('Templates Not Installed', 'Trying to create from template but Templates plugin is not installed. Find at https://github.com/ksalzke/templates-for-omnifocus')

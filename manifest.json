@@ -6,10 +6,13 @@
   "version": "4.0.0",
   "actions": [
     {
-      "identifier": "noteToSubtasks"
+      "identifier": "noteToSubtasks",
+      "image": "list.bullet.indent"
     },
     {
-      "identifier": "collapseSubtasks"
+      "identifier": "collapseSubtasks",
+      "image": "arrow.triangle.merge"
+
     }
   ],
   "libraries": [

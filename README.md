@@ -64,10 +64,11 @@ This function takes a task object as input and, if there is a template specified
 2. Creates the subtasks by "pasting" the generated TaskPaper into OmniFocus.
 3. If only one subtask is created, recursively runs on the created subtask as well.
 
-Subtasks are tagged with:
-* any tags that the original task is tagged with, _unless_ they are included in the `uninheritedTags` option in the config file,
-* a checklist tag (which defaults to `✓` and is set in the config file), and
+Subtasks inherit the tags of the parent tags, as well as:
+* a 'checklist' tag, which can optionally be set in the preferences, and
 * any tags specified in the regular TaskPaper format
+
+Tags specified as 'uninherited tags' in the preferences are removed from subtasks.
 
 To allow for multiple iterations of checklists, there are three 'levels' of 'task markers':
 1. `- ` or `[ ]` will be expanded the first time the function is run

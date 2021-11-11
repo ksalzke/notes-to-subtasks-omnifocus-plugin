@@ -41,11 +41,19 @@ This action allows the user to set the preferences for the plug-in. These sync b
 
 This plugin contains the following function within the `noteToSubtasksLib` library:
 
-## templateToSubtasks
+## `loadSyncedPrefs () : SyncedPrefs`
+
+Returns the [SyncedPref](https://github.com/ksalzke/synced-preferences-for-omnifocus) object for this plugin.
+
+## `getChecklistTag () : Tag`
+
+This function returns the 'checklist tag' set in preferences, or null if none has been set.
+
+## `templateToSubtasks (task: Task, templateName: string)`
 
 This asynchronous function tasks a task and a template project name as input and uses my [Templates For OmniFocus](https://github.com/ksalzke/templates-for-omnifocus) plug-in to insert the template as a subtask. (Note that not all more advanced features are fully supported, but basic use of placeholders should work correctly. )
 
-## noteToSubtasks
+## `noteToSubtasks (task: Task)`
 
 This function takes a task object as input and, if there is a template specified in the note in the format `$TEMPLATE=Name of Template Project`, runs the `templateToSubtasks` action above. Otherwise, it:
 1. Builds the TaskPaper text to be used to create subtasks of that task.
@@ -68,7 +76,7 @@ In the process of creating the TaskPaper text, this function:
 
 In both cases, repeating tasks are _skipped_ before expanding.
 
-## collapseSubtasks
+## `collapseSubtasks (task: Task)`
 
 Given a task, this function: 
 1. Ensures the task is not set to autocomplete with children.

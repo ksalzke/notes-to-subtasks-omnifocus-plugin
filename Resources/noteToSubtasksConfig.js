@@ -1,12 +1,6 @@
-/* global PlugIn Version tagsMatching */
+/* global PlugIn Version */
 (() => {
   const noteToSubtasksConfig = new PlugIn.Library(new Version('1.0'))
-
-  noteToSubtasksConfig.checklistTag = function () {
-    // The tag that subtasks are tagged with
-    // THIS SHOULD BE A TAG OBJECT
-    return tagsMatching('✓')[0]
-  }
 
   noteToSubtasksConfig.uninheritedTags = function () {
     // The tags that shouldn't be inherited by the subtasks

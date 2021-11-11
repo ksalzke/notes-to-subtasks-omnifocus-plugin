@@ -45,6 +45,12 @@
     const checklistTag = lib.getChecklistTag()
     const uninheritedTags = lib.getUninheritedTags()
 
+    // function to add checklist tag and remove uninherited tags
+    const tagSubtasks = (task) => task.flattenedTasks.forEach(subtask => {
+      subtask.addTag(checklistTag)
+      subtask.removeTags(uninheritedTags)
+    })
+
     // if task is a repeating task, duplicate and drop before expanding the new task
     const nTask = duplicateTasks([task], task.before)[0]
     nTask.repetitionRule = null
@@ -81,13 +87,6 @@
     // replace '[ ]' with '-'
     taskpaper = taskpaper.replace(/\[\s\]/g, ' - ')
 
-    // function to add tags
-    function tagSubtasks (parentTask) {
-      const tagsToAdd = parentTask.tags.filter(tag => !uninheritedTags.includes(tag))
-      if (checklistTag !== null) tagsToAdd.push(checklistTag)
-      parentTask.flattenedTasks.forEach(subtask => subtask.addTags(tagsToAdd))
-    }
-
     // replace '( )' with '[ ]'
     taskpaper = taskpaper.replace(/\(\s\)/g, '[ ]')
 
@@ -102,7 +101,7 @@
     const newTasks = pasteTasksFromPasteboard(subtaskPasteboard)
     moveTasks(newTasks, task.ending)
 
-    // add tags
+    // add checklist tag and remove uninherited tags
     tagSubtasks(task)
 
     // check if there is only one subtask now and if so expand it too

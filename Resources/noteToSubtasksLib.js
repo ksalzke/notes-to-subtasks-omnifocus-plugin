@@ -23,6 +23,11 @@
     return (id === null) ? null : Tag.byIdentifier(id)
   }
 
+  lib.getUninheritedTags = () => {
+    const preferences = lib.loadSyncedPrefs()
+    return (preferences.read('uninheritedTagIDs') !== null) ? preferences.read('uninheritedTagIDs').map(id => Tag.byIdentifier(id)) : []
+  }
+
   lib.templateToSubtasks = async function (task, templateName) {
     const templateLib = PlugIn.find('com.KaitlinSalzke.Templates').library('templateLibrary')
 
@@ -37,12 +42,8 @@
   }
 
   lib.noteToSubtasks = function (task) {
-    // configuration
-    const config = PlugIn.find('com.KaitlinSalzke.noteToSubtasks').library(
-      'noteToSubtasksConfig'
-    )
     const checklistTag = lib.getChecklistTag()
-    const uninheritedTags = config.uninheritedTags()
+    const uninheritedTags = lib.getUninheritedTags()
 
     // if task is a repeating task, duplicate and drop before expanding the new task
     const nTask = duplicateTasks([task], task.before)[0]

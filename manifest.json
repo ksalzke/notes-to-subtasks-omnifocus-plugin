@@ -21,9 +21,6 @@
   "libraries": [
     {
       "identifier": "noteToSubtasksLib"
-    },
-    {
-      "identifier": "noteToSubtasksConfig"
     }
   ]
 }

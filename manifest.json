@@ -12,6 +12,10 @@
     {
       "identifier": "collapseSubtasks",
       "image": "arrow.triangle.merge"
+    },
+    {
+      "identifier": "preferences",
+      "image": "doc.badge.gearshape.fill"
     }
   ],
   "libraries": [

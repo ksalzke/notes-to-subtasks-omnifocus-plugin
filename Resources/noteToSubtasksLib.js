@@ -1,8 +1,29 @@
-/* global PlugIn Version duplicateTasks Pasteboard copyTasksToPasteboard deleteObject moveTasks TypeIdentifier pasteTasksFromPasteboard Alert */
+/* global PlugIn Version Tag duplicateTasks Pasteboard copyTasksToPasteboard deleteObject moveTasks TypeIdentifier pasteTasksFromPasteboard Alert */
 (() => {
-  const functionLibrary = new PlugIn.Library(new Version('1.0'))
+  const lib = new PlugIn.Library(new Version('1.0'))
 
-  functionLibrary.templateToSubtasks = async function (task, templateName) {
+  lib.loadSyncedPrefs = () => {
+    const syncedPrefsPlugin = PlugIn.find('com.KaitlinSalzke.SyncedPrefLibrary')
+
+    if (syncedPrefsPlugin !== null) {
+      const SyncedPref = syncedPrefsPlugin.library('syncedPrefLibrary').SyncedPref
+      return new SyncedPref('com.KaitlinSalzke.noteToSubtasks')
+    } else {
+      const alert = new Alert(
+        'Synced Preferences Library Required',
+        'For the Note To Subtasks plug-in to work correctly, the \'Synced Preferences for OmniFocus\' plugin (https://github.com/ksalzke/synced-preferences-for-omnifocus) is also required and needs to be added to the plug-in folder separately. Either you do not currently have this plugin installed, or it is not installed correctly.'
+      )
+      alert.show()
+    }
+  }
+
+  lib.getChecklistTag = () => {
+    const preferences = lib.loadSyncedPrefs()
+    const id = preferences.read('checklistTagID')
+    return (id === null) ? null : Tag.byIdentifier(id)
+  }
+
+  lib.templateToSubtasks = async function (task, templateName) {
     const templateLib = PlugIn.find('com.KaitlinSalzke.Templates').library('templateLibrary')
 
     if (templateLib !== null) {
@@ -15,12 +36,12 @@
     }
   }
 
-  functionLibrary.noteToSubtasks = function (task) {
+  lib.noteToSubtasks = function (task) {
     // configuration
     const config = PlugIn.find('com.KaitlinSalzke.noteToSubtasks').library(
       'noteToSubtasksConfig'
     )
-    const checklistTag = config.checklistTag()
+    const checklistTag = lib.getChecklistTag()
     const uninheritedTags = config.uninheritedTags()
 
     // if task is a repeating task, duplicate and drop before expanding the new task
@@ -32,7 +53,7 @@
     // create from template if applicable
     const templateNameMatch = task.note.match(/\$TEMPLATE=(.*?)$/)
     if (templateNameMatch !== null) {
-      functionLibrary.templateToSubtasks(task, templateNameMatch[1])
+      lib.templateToSubtasks(task, templateNameMatch[1])
       tagSubtasks(task)
       return
     }
@@ -62,7 +83,8 @@
     // function to add tags
     function tagSubtasks (parentTask) {
       const tagsToAdd = parentTask.tags.filter(tag => !uninheritedTags.includes(tag))
-      parentTask.flattenedTasks.forEach(subtask => subtask.addTags([checklistTag, ...tagsToAdd]))
+      if (checklistTag !== null) tagsToAdd.push(checklistTag)
+      parentTask.flattenedTasks.forEach(subtask => subtask.addTags(tagsToAdd))
     }
 
     // replace '( )' with '[ ]'
@@ -88,7 +110,7 @@
     }
   }
 
-  functionLibrary.collapseSubtasks = function (task) {
+  lib.collapseSubtasks = function (task) {
     // make sure parent task isn't set to autocomplete so that it isn't marked complete when collapsed
     task.completedByChildren = false
 
@@ -99,5 +121,5 @@
     task.children.forEach(child => deleteObject(child))
   }
 
-  return functionLibrary
+  return lib
 })()

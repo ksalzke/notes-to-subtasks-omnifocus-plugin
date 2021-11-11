@@ -10,11 +10,14 @@ Refer to the 'issues' in this repo for known issues and planned changes/enhancem
 
 # Installation & Set-Up
 
+**Important note: for this plug-in bundle to work correctly, my [Synced Preferences for OmniFocus plugin](https://github.com/ksalzke/synced-preferences-for-omnifocus) is also required and needs to be added to the plug-in folder separately.**
+
 1. Click on the green `Clone or download` button above to download a `.zip` file of all the files in this GitHub repository.
 2. Unzip the downloaded file.
 3. Open the configuration file located at `Resources/noteToSubtasksConfig.js` and make any changes needed to reflect your OmniFocus set-up. Further explanations of the options are included within that file as comments.
 4. Rename the entire folder to anything you like, with the extension `.omnifocusjs`
 5. Move the resulting file to your OmniFocus plug-in library folder.
+6. Configure your preferences using the `Preferences` action. (Note that to run this action, no tasks can be selected.)
 
 # Actions
 
@@ -27,6 +30,12 @@ This action simply runs the below `noteToSubtasks` function on the selected task
 ## Collapse Subtasks
 
 This action simply runs the below `noteToSubtasks` function on the selected task(s).
+
+## Preferences
+
+This action allows the user to set the preferences for the plug-in. These sync between devices using the Synced Preferences plugin linked above. Currently, the available preferences are:
+
+* **Checklist Tag** If set, this tag will be added to each subtask (checklist item) when the note is expanded to subtasks.
 
 # Functions
 

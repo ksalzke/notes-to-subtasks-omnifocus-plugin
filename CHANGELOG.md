@@ -1,3 +1,12 @@
+# [5.1.0](https://github.com/ksalzke/notes-to-subtasks-omnifocus-plugin/compare/v5.0.0...v5.1.0) (2021-11-11)
+
+
+### Features
+
+* add 'tags to remove from skipped task when expanding' preference ([8fcd21a](https://github.com/ksalzke/notes-to-subtasks-omnifocus-plugin/commit/8fcd21a37ed8934456be3f97a5f9898f034e23e2))
+
+
+
 # [5.0.0](https://github.com/ksalzke/notes-to-subtasks-omnifocus-plugin/compare/v4.1.0...v5.0.0) (2021-11-11)
 
 

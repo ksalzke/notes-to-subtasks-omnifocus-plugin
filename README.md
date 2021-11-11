@@ -36,6 +36,7 @@ This action allows the user to set the preferences for the plug-in. These sync b
 
 * **Checklist Tag** If set, this tag will be added to each subtask (checklist item) when the note is expanded to subtasks.
 * **Uninherited Tags** Tags that should not be inherited by the created subtasks, even if they are applied to the parent task.
+* **Tags To Remove From Skipped Task When Expanding** Repeating tasks are 'skipped' prior to being expanded. This preferences specifies tags that should be removed from the original task (i.e. the next ocurrence).
 
 # Functions
 
@@ -52,6 +53,10 @@ This function returns the 'checklist tag' set in preferences, or null if none ha
 ## `getUninheritedTags () : Array<Tag>`
 
 Returns an array containing all 'uninherited tags' set in preferences. If no uninherited tags have been set, an empty array is returned.
+
+## `getTagsToRemove () : Array<Tag>`
+
+Returns an array containing all 'Tags To Remove From Skipped Task When Expanding' set in preferences. If none have been set, an empty array is returned.
 
 ## `templateToSubtasks (task: Task, templateName: string)`
 

@@ -28,6 +28,11 @@
     return (preferences.read('uninheritedTagIDs') !== null) ? preferences.read('uninheritedTagIDs').map(id => Tag.byIdentifier(id)) : []
   }
 
+  lib.getTagsToRemove = () => {
+    const preferences = lib.loadSyncedPrefs()
+    return (preferences.read('tagsToRemoveIDs') !== null) ? preferences.read('tagsToRemoveIDs').map(id => Tag.byIdentifier(id)) : []
+  }
+
   lib.templateToSubtasks = async function (task, templateName) {
     const templateLib = PlugIn.find('com.KaitlinSalzke.Templates').library('templateLibrary')
 
@@ -44,6 +49,7 @@
   lib.noteToSubtasks = function (task) {
     const checklistTag = lib.getChecklistTag()
     const uninheritedTags = lib.getUninheritedTags()
+    const tagsToRemove = lib.getTagsToRemove()
 
     // function to add checklist tag and remove uninherited tags
     const tagSubtasks = (task) => task.flattenedTasks.forEach(subtask => {
@@ -54,6 +60,7 @@
     // if task is a repeating task, duplicate and drop before expanding the new task
     const nTask = duplicateTasks([task], task.before)[0]
     nTask.repetitionRule = null
+    task.removeTags(tagsToRemove)
     task.drop(false)
     task = nTask
 

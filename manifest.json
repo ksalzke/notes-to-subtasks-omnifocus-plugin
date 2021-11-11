@@ -3,7 +3,7 @@
   "identifier": "com.KaitlinSalzke.noteToSubtasks",
   "author": "Kaitlin Salzke",
   "description": "Converts the TaskPaper-formatted note of the selected task into subtasks. Note '[ ]' is recognised as '-' to allow for notes to be generated as part of a TaskPaper template.",
-  "version": "4.1.0",
+  "version": "5.0.0",
   "actions": [
     {
       "identifier": "noteToSubtasks",

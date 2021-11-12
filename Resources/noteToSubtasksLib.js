@@ -54,6 +54,7 @@
     // function to add checklist tag and remove uninherited tags
     const tagSubtasks = (task) => task.flattenedTasks.forEach(subtask => {
       subtask.addTag(checklistTag)
+      subtask.addTags(task.tags)
       subtask.removeTags(uninheritedTags)
     })
 

@@ -1,3 +1,12 @@
+## [5.1.1](https://github.com/ksalzke/notes-to-subtasks-omnifocus-plugin/compare/v5.1.0...v5.1.1) (2021-11-12)
+
+
+### Bug Fixes
+
+* inherit parent tags when creating from template ([1e3b5ff](https://github.com/ksalzke/notes-to-subtasks-omnifocus-plugin/commit/1e3b5ff6a8bb378cff9a1b533a85fa088924b178))
+
+
+
 # [5.1.0](https://github.com/ksalzke/notes-to-subtasks-omnifocus-plugin/compare/v5.0.0...v5.1.0) (2021-11-11)
 
 

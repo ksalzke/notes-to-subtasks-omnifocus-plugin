@@ -1,3 +1,12 @@
+# [5.2.0](https://github.com/ksalzke/notes-to-subtasks-omnifocus-plugin/compare/v5.1.1...v5.2.0) (2021-12-02)
+
+
+### Features
+
+* restructure for easier installation/release ([a91e611](https://github.com/ksalzke/notes-to-subtasks-omnifocus-plugin/commit/a91e611bf3f8d026a6f4c72edc819bc4bb5e9c79))
+
+
+
 ## [5.1.1](https://github.com/ksalzke/notes-to-subtasks-omnifocus-plugin/compare/v5.1.0...v5.1.1) (2021-11-12)
 
 

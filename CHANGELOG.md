@@ -1,3 +1,18 @@
+# [5.3.0](https://github.com/ksalzke/notes-to-subtasks-omnifocus-plugin/compare/v5.2.0...v5.3.0) (2021-12-02)
+
+
+### Bug Fixes
+
+* autocomplete parent task where a template is used ([aed5a7c](https://github.com/ksalzke/notes-to-subtasks-omnifocus-plugin/commit/aed5a7cbfcfffe7bd183f36a55c48672ca04b4cb))
+
+
+### Features
+
+* add optional 'expandable' tag ([f431618](https://github.com/ksalzke/notes-to-subtasks-omnifocus-plugin/commit/f431618a944ef73165ba1259061b4c94f885c10b)), closes [#6](https://github.com/ksalzke/notes-to-subtasks-omnifocus-plugin/issues/6)
+* make 'Preferences' always available on macOS ([de11586](https://github.com/ksalzke/notes-to-subtasks-omnifocus-plugin/commit/de115865a9b356797466451d79486e3dd317d576))
+
+
+
 # [5.2.0](https://github.com/ksalzke/notes-to-subtasks-omnifocus-plugin/compare/v5.1.1...v5.2.0) (2021-12-02)
 
 

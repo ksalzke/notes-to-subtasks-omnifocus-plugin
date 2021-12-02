@@ -65,6 +65,9 @@
     task.drop(false)
     task = nTask
 
+    // mark parent task as completed when all children are completed
+    task.completedByChildren = true
+
     // create from template if applicable
     const templateNameMatch = task.note.match(/\$TEMPLATE=(.*?)$/)
     if (templateNameMatch !== null) {
@@ -78,9 +81,6 @@
     if (!regex.test(task.note)) {
       return
     }
-
-    // mark parent task as completed when all children are completed
-    task.completedByChildren = true
 
     // ignore everything up to first '[ ]' or '- ' or '_'' in TaskPaper
     let taskpaper = task.note.replace(regex, '')

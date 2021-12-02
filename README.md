@@ -34,6 +34,7 @@ This action simply runs the below `noteToSubtasks` function on the selected task
 This action allows the user to set the preferences for the plug-in. These sync between devices using the Synced Preferences plugin linked above. Currently, the available preferences are:
 
 * **Checklist Tag** If set, this tag will be added to each subtask (checklist item) when the note is expanded to subtasks.
+* **Expandable Tag** If set, this tag will be added to the 'parent' task when subtasks are being collapsed, to indicate that the task can be 'expanded'.
 * **Uninherited Tags** Tags that should not be inherited by the created subtasks, even if they are applied to the parent task.
 * **Tags To Remove From Skipped Task When Expanding** Repeating tasks are 'skipped' prior to being expanded. This preferences specifies tags that should be removed from the original task (i.e. the next ocurrence).
 
@@ -48,6 +49,10 @@ Returns the [SyncedPref](https://github.com/ksalzke/synced-preferences-for-omnif
 ## `getChecklistTag () : Tag`
 
 This function returns the 'checklist tag' set in preferences, or null if none has been set.
+
+## `getExpandableTag () : Tag`
+
+This function returns the 'expandable tag' set in preferences, or null if none has been set.
 
 ## `getUninheritedTags () : Array<Tag>`
 
@@ -90,6 +95,7 @@ In both cases, repeating tasks are _skipped_ before expanding.
 Given a task, this function: 
 1. Ensures the task is not set to autocomplete with children.
 2. Sets the note of the given task to the children of the task in TaskPaper format.
-3. Deletes the subtasks.
+3. Adds the 'Expandable' tag (if one has been set in the preferences).
+4. Deletes the subtasks.
 
 The task can then subsequently be expanded using the `noteToSubtasks` function.

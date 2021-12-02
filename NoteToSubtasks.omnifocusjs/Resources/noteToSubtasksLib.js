@@ -23,6 +23,12 @@
     return (id === null) ? null : Tag.byIdentifier(id)
   }
 
+  lib.getExpandableTag = () => {
+    const preferences = lib.loadSyncedPrefs()
+    const id = preferences.read('expandableTagID')
+    return (id === null) ? null : Tag.byIdentifier(id)
+  }
+
   lib.getUninheritedTags = () => {
     const preferences = lib.loadSyncedPrefs()
     return (preferences.read('uninheritedTagIDs') !== null) ? preferences.read('uninheritedTagIDs').map(id => Tag.byIdentifier(id)) : []
@@ -125,6 +131,8 @@
     const tempPasteboard = Pasteboard.makeUnique()
     copyTasksToPasteboard(task.children, tempPasteboard)
     task.note = tempPasteboard.string
+
+    if (lib.getExpandableTag() !== null) task.addTag(lib.getExpandableTag())
 
     task.children.forEach(child => deleteObject(child))
   }

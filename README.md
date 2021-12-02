@@ -69,22 +69,26 @@ This asynchronous function tasks a task and a template project name as input and
 ## `noteToSubtasks (task: Task)`
 
 This function takes a task object as input and, if there is a template specified in the note in the format `$TEMPLATE=Name of Template Project`, runs the `templateToSubtasks` action above. Otherwise, it:
+
 1. Builds the TaskPaper text to be used to create subtasks of that task.
 2. Creates the subtasks by "pasting" the generated TaskPaper into OmniFocus.
 3. If only one subtask is created, recursively runs on the created subtask as well.
 
 Subtasks inherit the tags of the parent tags, as well as:
+
 * a 'checklist' tag, which can optionally be set in the preferences, and
 * any tags specified in the regular TaskPaper format
 
 Tags specified as 'uninherited tags' in the preferences are removed from subtasks.
 
 To allow for multiple iterations of checklists, there are three 'levels' of 'task markers':
+
 1. `- ` or `[ ]` will be expanded the first time the function is run
 2. `( )` will be expanded the second time the function is run
 3. `< >` will be expanded the third time the function is run
 
 In the process of creating the TaskPaper text, this function:
+
 * Ignores everything up to the first `[ ]`, `- `, or `_` in the note
 * Replaces underscores before `[ ` with tabs (this is to assist with Taskpaper generated from Shortcuts, as Shortcuts doesn't retain the tab characters)
 

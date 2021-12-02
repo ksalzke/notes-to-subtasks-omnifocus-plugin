@@ -15,7 +15,7 @@ Refer to ['issues'](https://github.com/ksalzke/notes-to-subtasks-omnifocus-plugi
 1. Download the [latest release](https://github.com/ksalzke/notes-to-subtasks-omnifocus-plugin/releases/latest).
 2. Unzip the downloaded file.
 3. Move the `.omnifocusjs` file to your OmniFocus plug-in library folder (or open it to install).
-4. Configure your preferences using the `Preferences` action. (Note that to run this action, no tasks can be selected.)
+4. Configure your preferences using the `Preferences` action. (Note that to run this action on iOS, no tasks can be selected.)
 
 # Actions
 

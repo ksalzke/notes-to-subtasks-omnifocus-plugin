@@ -11,7 +11,7 @@
     } else {
       const alert = new Alert(
         'Synced Preferences Library Required',
-        'For the Note To Subtasks plug-in to work correctly, the \'Synced Preferences for OmniFocus\' plugin (https://github.com/ksalzke/synced-preferences-for-omnifocus) is also required and needs to be added to the plug-in folder separately. Either you do not currently have this plugin installed, or it is not installed correctly.'
+        'For the Note To Subtasks plug-in to work correctly, the \'Synced Preferences for OmniFocus\' plug-in (https://github.com/ksalzke/synced-preferences-for-omnifocus) is also required and needs to be added to the plug-in folder separately. Either you do not currently have this plug-in installed, or it is not installed correctly.'
       )
       alert.show()
     }
@@ -47,7 +47,7 @@
       const template = templateFolder.flattenedProjects.find(project => project.name === templateName)
       templateLib.createFromTemplate(template, task)
     } else {
-      const alert = new Alert('Templates Not Installed', 'Trying to create from template but Templates plugin is not installed. Find at https://github.com/ksalzke/templates-for-omnifocus')
+      const alert = new Alert('Templates Not Installed', 'Trying to create from template but Templates plug-in is not installed. Find at https://github.com/ksalzke/templates-for-omnifocus')
       alert.show()
     }
   }

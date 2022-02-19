@@ -10,7 +10,7 @@ Refer to ['issues'](https://github.com/ksalzke/notes-to-subtasks-omnifocus-plugi
 
 # Installation & Set-Up
 
-**Important note: for this plug-in bundle to work correctly, my [Synced Preferences for OmniFocus plugin](https://github.com/ksalzke/synced-preferences-for-omnifocus) is also required and needs to be added to the plug-in folder separately.**
+**Important note: for this plug-in bundle to work correctly, my [Synced Preferences for OmniFocus plug-in](https://github.com/ksalzke/synced-preferences-for-omnifocus) is also required and needs to be added to the plug-in folder separately.**
 
 1. Download the [latest release](https://github.com/ksalzke/notes-to-subtasks-omnifocus-plugin/releases/latest).
 2. Unzip the downloaded file.
@@ -31,7 +31,7 @@ This action simply runs the below `noteToSubtasks` function on the selected task
 
 ## Preferences
 
-This action allows the user to set the preferences for the plug-in. These sync between devices using the Synced Preferences plugin linked above. Currently, the available preferences are:
+This action allows the user to set the preferences for the plug-in. These sync between devices using the Synced Preferences plug-in linked above. Currently, the available preferences are:
 
 * **Checklist Tag** If set, this tag will be added to each subtask (checklist item) when the note is expanded to subtasks.
 * **Expandable Tag** If set, this tag will be added to the 'parent' task when subtasks are being collapsed, to indicate that the task can be 'expanded'.
@@ -40,11 +40,11 @@ This action allows the user to set the preferences for the plug-in. These sync b
 
 # Functions
 
-This plugin contains the following function within the `noteToSubtasksLib` library:
+This plug-in contains the following function within the `noteToSubtasksLib` library:
 
 ## `loadSyncedPrefs () : SyncedPrefs`
 
-Returns the [SyncedPref](https://github.com/ksalzke/synced-preferences-for-omnifocus) object for this plugin.
+Returns the [SyncedPref](https://github.com/ksalzke/synced-preferences-for-omnifocus) object for this plug-in.
 
 ## `getChecklistTag () : Tag`
 

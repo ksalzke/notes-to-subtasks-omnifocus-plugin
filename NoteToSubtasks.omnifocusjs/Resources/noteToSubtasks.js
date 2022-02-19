@@ -6,11 +6,7 @@
   })
 
   action.validate = function (selection, sender) {
-    if (selection.tasks.length === 1) {
-      return true
-    } else {
-      return false
-    }
+    return selection.tasks.length === 1
   }
 
   return action

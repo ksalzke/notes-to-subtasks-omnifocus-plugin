@@ -1,3 +1,13 @@
+# [5.4.0](https://github.com/ksalzke/notes-to-subtasks-omnifocus-plugin/compare/v5.3.0...v5.4.0) (2022-02-19)
+
+
+### Features
+
+* :lipstick: rename 'Preferences' to 'Preferences: Note To Subtasks' ([734790e](https://github.com/ksalzke/notes-to-subtasks-omnifocus-plugin/commit/734790ea524cb6ac42616a08ea2151789028c9b7))
+* :sparkles: update validation: now always available ([c73d7cc](https://github.com/ksalzke/notes-to-subtasks-omnifocus-plugin/commit/c73d7cc2ee0b0c034797df049d1ee80630d3e301))
+
+
+
 # [5.3.0](https://github.com/ksalzke/notes-to-subtasks-omnifocus-plugin/compare/v5.2.0...v5.3.0) (2021-12-02)
 
 

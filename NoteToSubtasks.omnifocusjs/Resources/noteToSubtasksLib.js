@@ -65,12 +65,14 @@
     })
 
     // if task is a repeating task, duplicate and drop before expanding the new task
-    const nTask = duplicateTasks([task], task.before)[0]
-    nTask.repetitionRule = null
-    task.removeTags(tagsToRemove)
-    task.drop(false)
-    task = nTask
-
+    if (task.repetitionRule !== null) {
+      const nTask = duplicateTasks([task], task.before)[0]
+      nTask.repetitionRule = null
+      task.removeTags(tagsToRemove)
+      task.drop(false)
+      task = nTask
+    }
+    
     // mark parent task as completed when all children are completed
     task.completedByChildren = true
 

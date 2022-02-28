@@ -1,3 +1,13 @@
+## [5.4.1](https://github.com/ksalzke/notes-to-subtasks-omnifocus-plugin/compare/v5.4.0...v5.4.1) (2022-02-28)
+
+
+### Bug Fixes
+
+* :bug: fix bug re extra dropped and done tasks being added to the checklist task ([db324a1](https://github.com/ksalzke/notes-to-subtasks-omnifocus-plugin/commit/db324a17c04b8d9d6935d723ae69bb976503fd63))
+* :bug: fix issues with tags being deleted after being set in prefs ([1f067af](https://github.com/ksalzke/notes-to-subtasks-omnifocus-plugin/commit/1f067aff0bd3fa21ac959935a5d5e1c4ec3c8860)), closes [#10](https://github.com/ksalzke/notes-to-subtasks-omnifocus-plugin/issues/10)
+
+
+
 # [5.4.0](https://github.com/ksalzke/notes-to-subtasks-omnifocus-plugin/compare/v5.3.0...v5.4.0) (2022-02-19)
 
 

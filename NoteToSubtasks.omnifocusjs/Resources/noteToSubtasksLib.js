@@ -31,12 +31,12 @@
 
   lib.getUninheritedTags = () => {
     const preferences = lib.loadSyncedPrefs()
-    return (preferences.read('uninheritedTagIDs') !== null) ? preferences.read('uninheritedTagIDs').map(id => Tag.byIdentifier(id)) : []
+    return (preferences.read('uninheritedTagIDs') !== null) ? preferences.read('uninheritedTagIDs').map(id => Tag.byIdentifier(id)).filter(tag => tag !== null) : []
   }
 
   lib.getTagsToRemove = () => {
     const preferences = lib.loadSyncedPrefs()
-    return (preferences.read('tagsToRemoveIDs') !== null) ? preferences.read('tagsToRemoveIDs').map(id => Tag.byIdentifier(id)) : []
+    return (preferences.read('tagsToRemoveIDs') !== null) ? preferences.read('tagsToRemoveIDs').map(id => Tag.byIdentifier(id)).filter(tag => tag !== null) : []
   }
 
   lib.templateToSubtasks = async function (task, templateName) {
@@ -59,7 +59,7 @@
 
     // function to add checklist tag and remove uninherited tags
     const tagSubtasks = (task) => task.flattenedTasks.forEach(subtask => {
-      subtask.addTag(checklistTag)
+      if (checklistTag !== null) subtask.addTag(checklistTag)
       subtask.addTags(task.tags)
       subtask.removeTags(uninheritedTags)
     })

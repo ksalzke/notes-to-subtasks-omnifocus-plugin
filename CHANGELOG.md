@@ -1,3 +1,12 @@
+# [5.5.0](https://github.com/ksalzke/notes-to-subtasks-omnifocus-plugin/compare/v5.4.1...v5.5.0) (2023-09-03)
+
+
+### Features
+
+* :sparkles: add pref to ignore extra task details and use only task name when collapsing subtasks ([4cb948e](https://github.com/ksalzke/notes-to-subtasks-omnifocus-plugin/commit/4cb948ed58887d5958b79c3d464862a5cdbad140))
+
+
+
 ## [5.4.1](https://github.com/ksalzke/notes-to-subtasks-omnifocus-plugin/compare/v5.4.0...v5.4.1) (2022-02-28)
 
 

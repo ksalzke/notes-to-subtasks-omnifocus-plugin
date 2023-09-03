@@ -17,6 +17,15 @@
     }
   }
 
+  lib.includeTaskPaperDetails = () => {
+    console.log('checking pref')
+    const preferences = lib.loadSyncedPrefs()
+    const pref = preferences.read('includeTaskPaperDetails')
+    console.log('pref: ' +  pref)
+    if (pref !== null) return pref
+    else return true
+  }
+
   lib.getChecklistTag = () => {
     const preferences = lib.loadSyncedPrefs()
     const id = preferences.read('checklistTagID')
@@ -132,7 +141,8 @@
 
     const tempPasteboard = Pasteboard.makeUnique()
     copyTasksToPasteboard(task.children, tempPasteboard)
-    task.note = tempPasteboard.string
+    const taskPaperString = (lib.includeTaskPaperDetails()) ? tempPasteboard.string : tempPasteboard.string.replace(/\s@.*?\(.*?\)/gm, '')
+    task.note = taskPaperString
 
     if (lib.getExpandableTag() !== null) task.addTag(lib.getExpandableTag())
 

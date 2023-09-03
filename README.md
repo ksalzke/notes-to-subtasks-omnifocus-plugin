@@ -33,6 +33,7 @@ This action simply runs the below `noteToSubtasks` function on the selected task
 
 This action allows the user to set the preferences for the plug-in. These sync between devices using the Synced Preferences plug-in linked above. Currently, the available preferences are:
 
+* **Include TaskPaper Details** If set, TaskPaper details (tag, due dates, etc, will be included in the note). If not, only the task names will be included.
 * **Checklist Tag** If set, this tag will be added to each subtask (checklist item) when the note is expanded to subtasks.
 * **Expandable Tag** If set, this tag will be added to the 'parent' task when subtasks are being collapsed, to indicate that the task can be 'expanded'.
 * **Uninherited Tags** Tags that should not be inherited by the created subtasks, even if they are applied to the parent task.
@@ -98,7 +99,7 @@ In both cases, repeating tasks are _skipped_ before expanding.
 
 Given a task, this function: 
 1. Ensures the task is not set to autocomplete with children.
-2. Sets the note of the given task to the children of the task in TaskPaper format.
+2. Sets the note of the given task to the children of the task in TaskPaper format (or just a list of task names if depending on the 'Include TaskPaper Details' preference).
 3. Adds the 'Expandable' tag (if one has been set in the preferences).
 4. Deletes the subtasks.
 

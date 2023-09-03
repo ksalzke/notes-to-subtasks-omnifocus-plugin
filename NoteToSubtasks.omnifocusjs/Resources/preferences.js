@@ -4,6 +4,7 @@
     const preferences = this.noteToSubtasksLib.loadSyncedPrefs()
 
     // get current preferences or set defaults if they don't yet exist
+    const includeTaskPaperDetails = this.noteToSubtasksLib.includeTaskPaperDetails()
     const checklistTag = this.noteToSubtasksLib.getChecklistTag()
     const expandableTag = this.noteToSubtasksLib.getExpandableTag()
     const uninheritedTags = this.noteToSubtasksLib.getUninheritedTags()
@@ -11,6 +12,8 @@
 
     // create and show form
     const form = new Form()
+
+    form.addField(new Form.Field.Checkbox('includeTaskPaperDetails', 'Include TaskPaper Details', includeTaskPaperDetails))
 
     const checklistTagField = new Form.Field.Option('checklistTagID', 'Checklist Tag', flattenedTags, flattenedTags.map(t => t.name), checklistTag)
     checklistTagField.allowsNull = true
@@ -28,6 +31,7 @@
     await form.show('Preferences: Note To Subtasks', 'OK')
 
     // save preferences
+    preferences.write('includeTaskPaperDetails', form.values.includeTaskPaperDetails)
     if (form.values.checklistTagID !== null) preferences.write('checklistTagID', form.values.checklistTagID.id.primaryKey)
     preferences.write('uninheritedTagIDs', form.values.uninheritedTags.map(t => t.id.primaryKey))
     preferences.write('tagsToRemoveIDs', form.values.tagsToRemove.map(t => t.id.primaryKey))
